@@ -1,0 +1,401 @@
+App.js:
+import React from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import "./App.css";
+import Login from "./Login";
+import Signup from "./Signup";
+
+//npm install react-router-dom
+
+function App() {
+  const catalogItems = [
+    {
+      id: 1,
+      name: "STMPD LIQUID TSHIRT",
+      price: "$10",
+      imageUrl:
+        "https://shop.martingarrix.com/cdn/shop/files/DSC19813.png?v=1719404566&width=713",
+    },
+    {
+      id: 2,
+      name: "GARRIX RADAR",
+      price: "$15",
+      imageUrl:
+        "https://shop.martingarrix.com/cdn/shop/files/DSC19811.png?v=1719390830&width=600",
+    },
+    {
+      id: 3,
+      name: "REPLAY FOR MARTIN GARRIX",
+      price: "$20",
+      imageUrl:
+        "https://shop.martingarrix.com/cdn/shop/files/MMG353BACK.png?v=1719311164&width=600",
+    },
+    {
+      id: 4,
+      name: "Black Silver T-Shirt",
+      price: "$25",
+      imageUrl:
+        "https://shop.martingarrix.com/cdn/shop/files/DSC19809.png?v=1719409267&width=600",
+    },
+  ];
+
+  return (
+    <Router>
+      <div className="App">
+        <nav className="navbar">
+          <div className="navbar-logo">
+            <h1>WAD EXTERNAL</h1>
+          </div>
+          <ul className="navbar-links">
+            <li>
+              <Link to="/">Home</Link>
+            </li>
+            <li>
+              <Link to="/sales">Sales</Link>
+            </li>
+            <li>
+              <Link to="/contact">Contact</Link>
+            </li>
+            <li>
+              <Link to="/cart">Cart</Link>
+            </li>
+            <li>
+              <Link to="/login">Login</Link>
+            </li>
+            <li>
+              <Link to="/signup">Sign Up</Link>
+            </li>
+          </ul>
+        </nav>
+
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <div className="catalog">
+                <h2>Catalog</h2>
+                <div className="catalog-items">
+                  {catalogItems.map((item) => (
+                    <div key={item.id} className="catalog-item">
+                      <div className="item-image">
+                        <img src={item.imageUrl} alt={item.name} />
+                      </div>
+                      <p>{item.name}</p>
+                      <p>{item.price}</p>
+                      <button>Add to Cart</button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            }
+          />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+        </Routes>
+
+        <footer className="footer">
+          <p>&copy; 22071A0525 - SAI DEEPAK JAMI.</p>
+        </footer>
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+
+
+App.css:
+.App {
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000;
+  color: #fff;
+  padding: 10px 20px;
+}
+
+.navbar-logo h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.navbar-links {
+  list-style-type: none;
+  display: flex;
+  align-items: center;
+}
+
+.navbar-links li {
+  margin-right: 15px;
+}
+
+.navbar-links a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  padding-right: 20px;
+}
+
+.navbar-links button {
+  padding: 12px 20px;
+  background-color: #555;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  font-weight: bolder;
+  letter-spacing: 0.5px;
+  font-size: 14px;
+}
+
+.navbar-links button:hover {
+  transform: scale(1.05);
+  font-weight: bold;
+}
+
+.catalog {
+  padding: 20px;
+}
+
+.catalog-items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.catalog-item {
+  width: 300px;
+  padding: 20px;
+  margin: 10px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  font-weight: bolder;
+  text-align: center;
+  justify-content: space-around;
+  letter-spacing: 0.5px;
+}
+
+.catalog-item:hover {
+  transform: scale(1.05);
+  background-color: #dad9d9;
+}
+
+.item-image {
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.item-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.catalog-item p {
+  margin: 5px 0;
+}
+
+.catalog-item button {
+  width: 100%;
+  padding: 10px 16px;
+  background-color: #2b2b2b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.footer {
+  text-align: center;
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #000000;
+  color: #fff;
+}
+
+Login.js:
+import React from "react";
+import "./Form.css";
+
+function Login() {
+  const handleLoginSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  return (
+    <div className="form-container">
+      <h2>Login</h2>
+      <form onSubmit={handleLoginSubmit}>
+        <label>
+          Username:
+          <input type="text" name="username" required />
+        </label>
+        <label>
+          Password:
+          <input type="password" name="password" required />
+        </label>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
+}
+
+export default Login;
+
+Signup.js:
+import React from "react";
+import "./Form.css";
+
+function Signup() {
+  const handleSignupSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  return (
+    <div className="form-container">
+      <h2>Sign Up</h2>
+      <form onSubmit={handleSignupSubmit}>
+        <label>
+          First Name:
+          <input type="text" name="firstName" required />
+        </label>
+        <label>
+          Last Name:
+          <input type="text" name="lastName" required />
+        </label>
+        <label>
+          Username:
+          <input type="text" name="username" required />
+        </label>
+        <label>
+          Password:
+          <input type="password" name="password" required />
+        </label>
+        <label>
+          Email:
+          <input type="email" name="email" required />
+        </label>
+        <label>
+          Phone Number:
+          <input type="tel" name="phoneNumber" required />
+        </label>
+        <label>
+          Address:
+          <input type="text" name="address" required />
+        </label>
+        <label>
+          City:
+          <input type="text" name="city" required />
+        </label>
+        <label>
+          State:
+          <input type="text" name="state" required />
+        </label>
+        <label>
+          Zip Code:
+          <input type="text" name="zipCode" required />
+        </label>
+        <label>
+          Country:
+          <input type="text" name="country" required />
+        </label>
+        <label>
+          Date of Birth:
+          <input type="date" name="dob" required />
+        </label>
+        <label>
+          Gender:
+          <select name="gender" required>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
+        </label>
+        <button type="submit">Sign Up</button>
+      </form>
+    </div>
+  );
+}
+
+export default Signup;
+
+Form.css:
+.form-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.form-container h2 {
+  margin-bottom: 20px;
+}
+
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form-container label {
+  margin-bottom: 10px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container input,
+.form-container select {
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.form-container button {
+  padding: 12px 20px;
+  background-color: #2b2b2b;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: transform 0.2s ease-in-out;
+  margin-top: 20px;
+}
+
+.form-container button:hover {
+  transform: scale(1.05);
+}
+
+Index.js:
+// src/index.js
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import "./index.css";
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById("root")
+);
